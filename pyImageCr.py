@@ -14,7 +14,7 @@ def createPoemImage():
     responsePoemNum = requests.get(poemNumApi)
     dataPoemNum = responsePoemNum.json()
     # dataPoemNum["randomNum"]
-    poemNum = dataPoemNum["randomNum"]
+    poemNum = 15
 
     # get POEM
     poemData =  data["items"][poemNum]["poem"]
@@ -77,25 +77,27 @@ def createPoemImage():
 
     imgObj.save("todaysPoem.jpg")
 
-    g=Github("Git Token")
-repo=g.get_repo("Repo")
+    g=Github("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")
+    repo=g.get_user().get_repo("pyImageCreate")
 
-file_path = "Image.png"
-message = "Commit Message"
-branch = "master"
+    file_pathPy = "todaysPoem.jpg"
+    file_pathGit = "/todaysPoem.jpg"
+    message = "update today's poem 1"
+    branch = "master"
 
-with open(file_path, "rb") as image:
-    f = image.read()
-    image_data = bytearray(f)
+    with open(file_pathPy, "rb") as image:
+        f = image.read()
+        image_data = bytearray(f)
 
-def push_image(path,commit_message,content,branch,update=False):
-    if update:
-        contents = repo.get_contents(path, ref=branch)
-        repo.update_file(contents.path, commit_message, content, sha=contents.sha, branch)
-    else:
-        repo.create_file(path, commit_message, content, branch)
+    def push_image(path,commit_message,content,branch,update=True):
+        if update:
+            contents = repo.get_contents(path, ref=branch)
+            
+            repo.update_file(contents.path, commit_message, content, sha=contents.sha, branch="master")
+        else:
+            repo.create_file(path, commit_message, content, branch)
 
 
-push_image(file_path,message, bytes(image_data), branch, update=False)
+    push_image(file_pathGit,message, bytes(image_data), branch, update=True)
 
 createPoemImage()
