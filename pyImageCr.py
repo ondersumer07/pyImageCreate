@@ -77,7 +77,7 @@ def createPoemImage():
 
     imgObj.save("todaysPoem.jpg")
 
-    g=Github("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")
+    g=Github("")
     repo=g.get_user().get_repo("pyImageCreate")
 
     file_pathPy = "todaysPoem.jpg"
