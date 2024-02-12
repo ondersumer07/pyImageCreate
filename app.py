@@ -53,9 +53,9 @@ def createPoemImage():
         return longestline
 
     # create FONT OBJECTS
-    fontObjectTitle = ImageFont.truetype('/Inter-ExtraBold.ttf', 40)
-    fontObjectPoem = ImageFont.truetype('/Inter-Regular.ttf', 30)
-    fontObjectSource = ImageFont.truetype('/Inter-LightItalic.otf', 20)
+    fontObjectTitle = ImageFont.truetype('Inter-ExtraBold.ttf', 40)
+    fontObjectPoem = ImageFont.truetype('Inter-Regular.ttf', 30)
+    fontObjectSource = ImageFont.truetype('Inter-LightItalic.otf', 20)
 
     # calculate the IDEAL HEIGHT of picture and source
     idealHeightofSource = 1500
