@@ -9,12 +9,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 GITHUB_ACCESS_TOKEN=os.getenv("GITHUB_ACCESS_TOKEN")
+CRONJOB_KEY=os.getenv("CRONJOB_KEY")
 
 app = Flask(__name__)
 auth = HTTPBasicAuth()
 
 USER_DATA = {
-    "cronjob": "bv'w5_T=h^9]+ta37y2;<?B4>J#A6.@Wxc8PHk$j"}
+    "cronjob": CRONJOB_KEY}
 
 @auth.verify_password
 def verify(username, password):
