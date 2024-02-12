@@ -27,13 +27,31 @@ api_url = "https://personal-website.pockethost.io/api/collections/poems/records?
 response = requests.get(api_url)
 data = response.json()
 
+interExtraBold = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__), 'fonts/Inter-ExtraBold.ttf'
+    )
+)
+
+interRegular = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__), 'fonts/Inter-Regular.ttf'
+    )
+)
+
+interLightItalic = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__), 'fonts/Inter-LightItalic.otf'
+    )
+)
+
 def createPoemImage():
     # get poem number from public api
     poemNumApi = "http://ondersumer07.pythonanywhere.com/randomNumAPI"
     responsePoemNum = requests.get(poemNumApi)
     dataPoemNum = responsePoemNum.json()
     # dataPoemNum["randomNum"]
-    poemNum = dataPoemNum["randomNum"]
+    poemNum = 1
 
     # get POEM
     poemData =  data["items"][poemNum]["poem"]
@@ -53,9 +71,9 @@ def createPoemImage():
         return longestline
 
     # create FONT OBJECTS
-    fontObjectTitle = ImageFont.truetype('Inter-ExtraBold.ttf', 40)
-    fontObjectPoem = ImageFont.truetype('Inter-Regular.ttf', 30)
-    fontObjectSource = ImageFont.truetype('Inter-LightItalic.otf', 20)
+    fontObjectTitle = ImageFont.truetype(font=interExtraBold, size=40)
+    fontObjectPoem = ImageFont.truetype(font=interRegular, size=30)
+    fontObjectSource = ImageFont.truetype(font=interLightItalic, size=20)
 
     # calculate the IDEAL HEIGHT of picture and source
     idealHeightofSource = 1500
