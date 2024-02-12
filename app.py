@@ -2,6 +2,25 @@ from PIL import Image, ImageDraw, ImageFont
 from github import Github
 from datetime import date
 import requests
+import os
+from flask import Flask
+from flask_httpauth import HTTPBasicAuth
+from dotenv import load_dotenv
+
+load_dotenv()
+GITHUB_ACCESS_TOKEN=os.getenv("GITHUB_ACCESS_TOKEN")
+
+app = Flask(__name__)
+auth = HTTPBasicAuth()
+
+USER_DATA = {
+    "cronjob": "bv'w5_T=h^9]+ta37y2;<?B4>J#A6.@Wxc8PHk$j"}
+
+@auth.verify_password
+def verify(username, password):
+    if not (username and password):
+        return False
+    return USER_DATA.get(username) == password
 
 # get data from pockethost
 api_url = "https://personal-website.pockethost.io/api/collections/poems/records?perPage=67"
@@ -14,7 +33,7 @@ def createPoemImage():
     responsePoemNum = requests.get(poemNumApi)
     dataPoemNum = responsePoemNum.json()
     # dataPoemNum["randomNum"]
-    poemNum = 15
+    poemNum = dataPoemNum["randomNum"]
 
     # get POEM
     poemData =  data["items"][poemNum]["poem"]
@@ -77,12 +96,12 @@ def createPoemImage():
 
     imgObj.save("todaysPoem.jpg")
 
-    g=Github("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")
+    g=Github(GITHUB_ACCESS_TOKEN)
     repo=g.get_user().get_repo("pyImageCreate")
 
     file_pathPy = "todaysPoem.jpg"
     file_pathGit = "/todaysPoem.jpg"
-    message = "update today's poem 1"
+    message = "update today's poem: " + data["items"][poemNum]["title"]
     branch = "master"
 
     with open(file_pathPy, "rb") as image:
@@ -100,4 +119,9 @@ def createPoemImage():
 
     push_image(file_pathGit,message, bytes(image_data), branch, update=True)
 
-createPoemImage()
+
+@app.route('/pyImageCreateRefresh', methods=["GET", "POST"])
+@auth.login_required
+def randomNumRefresh():
+    createPoemImage()
+    return "successfully updated poem image, check github."
