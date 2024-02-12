@@ -119,9 +119,9 @@ def createPoemImage():
 
     push_image(file_pathGit,message, bytes(image_data), branch, update=True)
 
-
 @app.route('/pyImageCreateRefresh', methods=["GET", "POST"])
 @auth.login_required
 def randomNumRefresh():
     createPoemImage()
     return "successfully updated poem image, check github."
+createPoemImage()
