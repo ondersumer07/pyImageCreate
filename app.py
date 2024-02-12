@@ -53,9 +53,9 @@ def createPoemImage():
         return longestline
 
     # create FONT OBJECTS
-    fontObjectTitle = ImageFont.truetype('C:\\Users\\onder\\Desktop\\pyImageCr\\Inter-ExtraBold.ttf', 40)
-    fontObjectPoem = ImageFont.truetype('C:\\Users\\onder\\Desktop\\pyImageCr\\Inter-Regular.ttf', 30)
-    fontObjectSource = ImageFont.truetype('C:\\Users\\onder\\Desktop\\pyImageCr\\Inter-LightItalic.otf', 20)
+    fontObjectTitle = ImageFont.truetype('https://raw.githubusercontent.com/ondersumer07/pyImageCreate/master/Inter-ExtraBold.ttf', 40)
+    fontObjectPoem = ImageFont.truetype('https://raw.githubusercontent.com/ondersumer07/pyImageCreate/master/Inter-Regular.ttf', 30)
+    fontObjectSource = ImageFont.truetype('https://raw.githubusercontent.com/ondersumer07/pyImageCreate/master/Inter-LightItalic.otf', 20)
 
     # calculate the IDEAL HEIGHT of picture and source
     idealHeightofSource = 1500
